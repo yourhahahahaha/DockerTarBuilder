@@ -5,7 +5,6 @@ on:
       file_urls:
         description: '请填写地址 多个用英文逗号分开'
         required: true
-        default: 'alpine:latest'  # 设置默认的
 
 jobs:
   pull_and_package:
@@ -15,17 +14,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Clean up Docker to free space
-      run: |
-          docker system prune -a -f
-          docker volume prune -f
-
     - name: Download file_urls and Package
       run: |
         images="${{ github.event.inputs.file_urls }}"
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do          
-          wget -P "$(basename ,${image})-amd64.tar" "${image}"
+          wget -P "${image}"
+          mv "${image}" "$(basename,${image})-amd64.tar"
         done
 
     - name: Compress the TAR files
