@@ -19,7 +19,7 @@ jobs:
         images="${{ github.event.inputs.file_urls }}"
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do          
-          wget -o "$(basename ${image})-amd64.tar" "${image}"
+          wget -O "$(basename ${image})-amd64.tar" "${image}"
         done
 
     - name: Compress the TAR files
