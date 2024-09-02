@@ -5,7 +5,7 @@ on:
       file_urls:
         description: '请填写地址 多个用英文逗号分开'
         required: true
-        default: 'alpine:latest'  # 设置默认的 Docker 镜像列表
+        default: 'alpine:latest'  # 设置默认的
 
 jobs:
   pull_and_package:
@@ -25,7 +25,7 @@ jobs:
         images="${{ github.event.inputs.file_urls }}"
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do          
-          wget -o "${image}" "${image//\//_}-amd64.tar"
+          wget -o "${image//\//_}-amd64.tar" "${image}"
         done
 
     - name: Compress the TAR files
