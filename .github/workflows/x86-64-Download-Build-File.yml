@@ -19,7 +19,7 @@ jobs:
         images="${{ github.event.inputs.file_urls }}"
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do          
-          wget -P "${image}"
+          wget -c "${image}"
           mv "${image}" "$(basename,${image})-amd64.tar"
         done
 
